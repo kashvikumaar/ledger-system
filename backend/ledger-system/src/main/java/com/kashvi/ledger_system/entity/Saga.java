@@ -15,6 +15,10 @@ public class Saga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id", nullable = false)
+    private LedgerTransaction transaction;
+
     @Enumerated(EnumType.STRING)
     private SagaStatus status;
 
@@ -36,6 +40,10 @@ public class Saga {
         return id;
     }
 
+    public LedgerTransaction getTransaction() {
+        return transaction;
+    }
+
     public SagaStatus getStatus() {
         return status;
     }
@@ -54,6 +62,10 @@ public class Saga {
 
     public void setStatus(SagaStatus status) {
         this.status = status;
+    }
+
+    public void setTransaction(LedgerTransaction transaction) {
+        this.transaction = transaction;
     }
 
     public void setFailureReason(String failureReason) {

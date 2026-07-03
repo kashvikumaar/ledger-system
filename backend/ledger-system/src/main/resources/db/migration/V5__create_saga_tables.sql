@@ -1,5 +1,6 @@
 CREATE TABLE sagas (
                        id BIGSERIAL PRIMARY KEY,
+                       transaction_id BIGINT NOT NULL,
                        status VARCHAR(50) NOT NULL
                            CHECK (status IN (
                                'STARTED',
@@ -11,7 +12,11 @@ CREATE TABLE sagas (
                            )),
                        failure_reason TEXT,
                        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-                       updated_at TIMESTAMP NOT NULL DEFAULT NOW()
+                       updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+
+                       CONSTRAINT fk_saga_transaction
+                           FOREIGN KEY (transaction_id)
+                               REFERENCES transactions(id)
 );
 
 CREATE TABLE saga_steps (
