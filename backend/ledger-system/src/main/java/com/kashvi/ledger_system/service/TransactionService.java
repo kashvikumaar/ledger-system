@@ -34,7 +34,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public void createTransaction(TransactionRequest request) {
+    public LedgerTransaction createTransaction(TransactionRequest request) {
 
         long totalCredits = 0;
         long totalDebits = 0;
@@ -54,6 +54,9 @@ public class TransactionService {
         }
 
         LedgerTransaction transaction = new LedgerTransaction();
+        transaction.setExternalTransactionReference(
+                request.getExternalTransactionReference()
+        );
         transaction.setStatus("PENDING");
 
         transaction = transactionRepository.save(transaction);
@@ -78,6 +81,6 @@ public class TransactionService {
 
         transaction.setStatus("SUCCESS");
 
-        transactionRepository.save(transaction);
+        return transactionRepository.save(transaction);
     }
 }

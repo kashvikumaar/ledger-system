@@ -15,15 +15,19 @@ public class Saga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id")
     private LedgerTransaction transaction;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SagaStatus status;
 
     @Column(name = "failure_reason")
     private String failureReason;
+
+    @Version
+    private Long version;
 
     @CurrentTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -50,6 +54,10 @@ public class Saga {
 
     public String getFailureReason() {
         return failureReason;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -16,6 +16,9 @@ public class LedgerTransaction {
     @Column(name = "idempotency_key")
     private UUID idempotencyKey;
 
+    @Column(name = "external_transaction_reference")
+    private String externalTransactionReference;
+
     private String status;
 
     @CurrentTimestamp
@@ -33,6 +36,10 @@ public class LedgerTransaction {
         return idempotencyKey;
     }
 
+    public String getExternalTransactionReference() {
+        return externalTransactionReference;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -43,6 +50,12 @@ public class LedgerTransaction {
 
     public void setIdempotencyKey(UUID idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
+    }
+
+    public void setExternalTransactionReference(
+            String externalTransactionReference
+    ) {
+        this.externalTransactionReference = externalTransactionReference;
     }
 
     public void setStatus(String status) {

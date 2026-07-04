@@ -9,7 +9,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "saga_steps")
+@Table(
+        name = "saga_steps",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uq_saga_step_type",
+                columnNames = {"saga_id", "step_type"}
+        )
+)
 public class SagaStep {
 
     @Id
@@ -17,18 +23,22 @@ public class SagaStep {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "saga_id")
+    @JoinColumn(name = "saga_id", nullable = false)
     private Saga saga;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "step_type")
+    @Column(name = "step_type", nullable = false)
     private StepType stepType;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SagaStepStatus status;
 
     @Column(name = "failure_reason")
     private String failureReason;
+
+    @Version
+    private Long version;
 
     @CurrentTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -59,6 +69,10 @@ public class SagaStep {
 
     public String getFailureReason() {
         return failureReason;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 
     public LocalDateTime getCreatedAt() {
