@@ -26,6 +26,8 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
 
     List<Entry> findByTransactionId(Long transactionId);
 
+    List<Entry> findByAccountIdOrderByCreatedAtDesc(Long accountId);
+
     @Query("""
         SELECT COALESCE(SUM(e.amount), 0)
         FROM Entry e

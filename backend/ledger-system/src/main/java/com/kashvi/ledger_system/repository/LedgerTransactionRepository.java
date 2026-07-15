@@ -17,6 +17,12 @@ public interface LedgerTransactionRepository
     """)
     List<Long> findSuccessfulTransactionIds();
 
+    Long countByStatus(String status);
+
+    List<LedgerTransaction> findTop10ByOrderByCreatedAtDesc();
+
+    List<LedgerTransaction> findAllByOrderByCreatedAtDesc();
+
     Optional<LedgerTransaction> findByExternalTransactionReference(
             String externalTransactionReference
     );
