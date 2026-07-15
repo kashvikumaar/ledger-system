@@ -28,3 +28,19 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+
+# Build output
+dist/
+**/dist/
+
+# Vite cache
+.vite/
+**/.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+*.log
+vite*.log
