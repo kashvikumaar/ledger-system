@@ -1,0 +1,30 @@
+# Java / Spring Boot
+target/
+*.class
+*.jar
+*.war
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+**/node_modules/
+
+# React / Vite
+dist/
+.vite/
+
+# Environment
+.env
+.env.local
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
